@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.digit.spring.entity.Products;
 import com.digit.spring.payload.ProductDTO;
-import com.digit.spring.repository.ProductReository;
+import com.digit.spring.repository.ProductRepository;
 
 @Service
 public class ProductService {
 	@Autowired
-	private ProductReository productRepo;
+	private ProductRepository productRepo;
 
 	private Products dtoToEntityProduct(ProductDTO productDTO) {
 		Products product = new Products();
@@ -25,7 +25,7 @@ public class ProductService {
 		return product;
 	}
 
-	private ProductDTO entityToDto(Products product) {
+	private ProductDTO entityToDtoProduct(Products product) {
 		ProductDTO productDTO = new ProductDTO();
 		productDTO.setPid(product.getPid());
 		productDTO.setTitle(product.getTitle());
@@ -37,19 +37,19 @@ public class ProductService {
 
 	public ProductDTO getSpecificProduct(Long id) {
 		Products product = productRepo.getReferenceById(id);
-		return entityToDto(product);
+		return entityToDtoProduct(product);
 	}
 
 	public ProductDTO addProduct(ProductDTO productDto) {
 		Products prod = dtoToEntityProduct(productDto);
 		Products productdto = productRepo.save(prod);
-		return entityToDto(productdto);
+		return entityToDtoProduct(productdto);
 
 	}
 
 	public List<ProductDTO> getAllProducts() {
 		List<Products> prod = productRepo.findAll();
-		return prod.stream().map(prods -> entityToDto(prods)).collect(Collectors.toList());
+		return prod.stream().map(prods -> entityToDtoProduct(prods)).collect(Collectors.toList());
 	}
 
 	public ProductDTO updateProduct(Long id, ProductDTO productDto) {
@@ -63,7 +63,7 @@ public class ProductService {
 
 //		System.out.println(productDto.getDescription());
 		Products save = productRepo.save(product);
-		return entityToDto(save);
+		return entityToDtoProduct(save);
 	}
 
 	public String deleteProduct(Long id) {
