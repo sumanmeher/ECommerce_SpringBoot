@@ -5,7 +5,7 @@ public class ProductDTO {
 	String title;
 	int price;
 	String description;
-	String uid;
+	Long uid;
 
 	public Long getPid() {
 		return pid;
@@ -39,11 +39,11 @@ public class ProductDTO {
 		this.description = description;
 	}
 
-	public String getUid() {
+	public Long getUid() {
 		return uid;
 	}
 
-	public void setUid(String uid) {
+	public void setUid(Long uid) {
 		this.uid = uid;
 	}
 

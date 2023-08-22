@@ -28,7 +28,7 @@ public class Products {
 	String description;
 
 	@Column(name = "uid", nullable = false)
-	String uid;
+	Long uid;
 
 	public Long getPid() {
 		return pid;
@@ -62,11 +62,13 @@ public class Products {
 		this.description = description;
 	}
 
-	public String getUid() {
+	public Long getUid() {
 		return uid;
 	}
 
-	public void setUid(String uid) {
+	public void setUid(Long uid) {
 		this.uid = uid;
 	}
+
+
 }
