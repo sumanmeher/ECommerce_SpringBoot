@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 import com.digit.spring.entity.Cart;
 import com.digit.spring.entity.Products;
 import com.digit.spring.entity.User;
+import com.digit.spring.entity.Wishlist;
 import com.digit.spring.payload.CartDTO;
 import com.digit.spring.payload.ProductDTO;
 import com.digit.spring.payload.UserDTO;
+import com.digit.spring.payload.WishlistDTO;
 import com.digit.spring.repository.CartRepository;
-import com.digit.spring.repository.ProductReository;
+import com.digit.spring.repository.ProductRepository;
 import com.digit.spring.repository.UserRepository;
+import com.digit.spring.repository.WishlistRepository;
 
 @Service
 public class UserService {
@@ -27,7 +30,10 @@ public class UserService {
 	private CartRepository cartRepository;
 	
 	@Autowired
-	private ProductReository productReository;
+	private ProductRepository productRepository;
+	
+	@Autowired
+	private WishlistRepository wishlistRepository;
 	
 	private UserDTO EntityToDtoUser(User user) {
 		UserDTO userDto = new UserDTO();
@@ -82,6 +88,26 @@ public class UserService {
 		return productDTO;
 	}
 	
+	private WishlistDTO EntityToDtoWishlist(Wishlist wishlist) {
+		WishlistDTO wishlistDto = new WishlistDTO();
+		wishlistDto.setWid(wishlist.getWid());
+		wishlistDto.setUid(wishlist.getUid());
+		wishlistDto.setPid(wishlist.getPid());
+        return wishlistDto;
+    }
+
+    private Wishlist dtoToEntityWishlist(WishlistDTO wishlistDto) {
+    	Wishlist wishlist = new Wishlist();
+    	wishlist.setWid(wishlistDto.getWid());
+    	wishlist.setUid(wishlistDto.getUid());
+    	wishlist.setPid(wishlistDto.getPid());
+        return wishlist;
+    }
+    
+    
+    
+    
+	
 	public UserDTO getOneUser(Long uid, UserDTO userDto) {
 		User oneUser = userRepo.getReferenceById(uid);
 		if(oneUser.getPassword().equals(userDto.getPassword())) {
@@ -111,11 +137,10 @@ public class UserService {
 	
 	public List<ProductDTO> getAllOneUserCart(Long uid){
 		List<Cart> productList = cartRepository.findByUid(uid);
-//		return productList.stream().map(prods -> EntityToDtoCart(prods)).collect(Collectors.toList());
 		List<ProductDTO> finalList = new ArrayList<>();
 		for (Cart cart : productList) {
 			Long pId = cart.getPid();
-			Products prod = productReository.getReferenceById(pId);
+			Products prod = productRepository.getReferenceById(pId);
 			finalList.add(entityToDtoProduct(prod));
 		}
 		return finalList;
@@ -123,4 +148,26 @@ public class UserService {
 		
 	}
 	
+	public WishlistDTO addToWishlist(Long uid, Long pid) {
+		WishlistDTO wishlistDto = new WishlistDTO();
+		wishlistDto.setPid(pid);
+		wishlistDto.setUid(uid);
+		
+		Wishlist wishlist = dtoToEntityWishlist(wishlistDto);
+		Wishlist save = wishlistRepository.save(wishlist);
+		return EntityToDtoWishlist(save);
+	}
+	
+	public List<ProductDTO> getAllOneUserWishlist(Long uid){
+		List<Wishlist> wishList = wishlistRepository.findByUid(uid);
+		List<ProductDTO> finalList = new ArrayList<>();
+		for (Wishlist wishlist : wishList) {
+			Long pId = wishlist.getPid();
+			Products prod = productRepository.getReferenceById(pId);
+			finalList.add(entityToDtoProduct(prod));
+		}
+		return finalList;
+		
+		
+	}
 }
