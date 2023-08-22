@@ -1,11 +1,14 @@
 package com.digit.spring.payload;
 
+import com.digit.spring.entity.User;
+
 public class ProductDTO {
 	Long pid;
 	String title;
 	int price;
 	String description;
 	Long uid;
+//	User uid;
 
 	public Long getPid() {
 		return pid;
@@ -38,6 +41,14 @@ public class ProductDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+//	public User getUid() {
+//		return uid;
+//	}
+//
+//	public void setUid(User uid) {
+//		this.uid = uid;
+//	}
 
 	public Long getUid() {
 		return uid;

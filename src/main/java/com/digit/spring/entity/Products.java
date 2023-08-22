@@ -1,10 +1,14 @@
 package com.digit.spring.entity;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,7 +21,7 @@ public class Products {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long pid;
-
+ 
 	@Column(name = "title", nullable = false)
 	String title;
 
@@ -27,8 +31,22 @@ public class Products {
 	@Column(name = "description", nullable = false)
 	String description;
 
-	@Column(name = "uid", nullable = false)
-	Long uid;
+//	@Column(name = "uid", nullable = false)
+//	Long uid;	
+	
+	
+//	@JoinColumn(name = "uid")
+	@ManyToOne 
+	User user; 
+
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Long getPid() {
 		return pid;
@@ -62,13 +80,14 @@ public class Products {
 		this.description = description;
 	}
 
-	public Long getUid() {
-		return uid;
-	}
-
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
+//	public Long getUid() {
+//		return uid;
+//	}
+//
+//	public void setUid(Long uid) {
+//		this.uid = uid;
+//	}
+	
 
 
 }

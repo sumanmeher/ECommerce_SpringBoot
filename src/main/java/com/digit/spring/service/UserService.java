@@ -68,7 +68,7 @@ public class UserService {
 		product.setTitle(productDTO.getTitle());
 		product.setPrice(productDTO.getPrice());
 		product.setDescription(productDTO.getDescription());
-		product.setUid(productDTO.getUid());
+//		product.setUid(productDTO.getUid());
 		return product;
 	}
 
@@ -78,14 +78,16 @@ public class UserService {
 		productDTO.setTitle(product.getTitle());
 		productDTO.setPrice(product.getPrice());
 		productDTO.setDescription(product.getDescription());
-		productDTO.setUid(product.getUid());
+//		productDTO.setUid(product.getUid());
 		return productDTO;
 	}
 	
 	public UserDTO getOneUser(Long uid, UserDTO userDto) {
 		User oneUser = userRepo.getReferenceById(uid);
-		if(oneUser.getPassword().equals(userDto.getPassword()))
+		if(oneUser.getPassword().equals(userDto.getPassword())) {
+			System.out.println(oneUser.getProducts());
 			return EntityToDtoUser(oneUser);
+		}
 		return null;
 	}
 

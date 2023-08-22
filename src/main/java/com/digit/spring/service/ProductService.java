@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.digit.spring.entity.Products;
+import com.digit.spring.entity.User;
 import com.digit.spring.payload.ProductDTO;
 import com.digit.spring.repository.ProductReository;
+import com.digit.spring.repository.UserRepository;
 
 @Service
 public class ProductService {
 	@Autowired
 	private ProductReository productRepo;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	private Products dtoToEntityProduct(ProductDTO productDTO) {
 		Products product = new Products();
@@ -21,7 +26,7 @@ public class ProductService {
 		product.setTitle(productDTO.getTitle());
 		product.setPrice(productDTO.getPrice());
 		product.setDescription(productDTO.getDescription());
-		product.setUid(productDTO.getUid());
+//		product.setUid(productDTO.getUid());
 		return product;
 	}
 
@@ -31,7 +36,7 @@ public class ProductService {
 		productDTO.setTitle(product.getTitle());
 		productDTO.setPrice(product.getPrice());
 		productDTO.setDescription(product.getDescription());
-		productDTO.setUid(product.getUid());
+//		productDTO.setUid(product.getUid());
 		return productDTO;
 	}
 
@@ -42,6 +47,8 @@ public class ProductService {
 
 	public ProductDTO addProduct(ProductDTO productDto) {
 		Products prod = dtoToEntityProduct(productDto);
+		User user = userRepository.getReferenceById(productDto.getUid());
+		prod.setUser(user);
 		Products productdto = productRepo.save(prod);
 		return entityToDto(productdto);
 
