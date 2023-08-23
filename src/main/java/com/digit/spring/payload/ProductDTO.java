@@ -1,7 +1,5 @@
 package com.digit.spring.payload;
 
-import com.digit.spring.entity.User;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +10,5 @@ public class ProductDTO {
 	String title;
 	int price;
 	String description;
-	Long uid;
+	Long uid;	
 }
