@@ -1,17 +1,17 @@
 package com.digit.spring.payload;
 
 public class CartDTO {
-	Long id;
+//	Long id;
 	Long uid;
 	Long pid;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+//	public Long getId() {
+//		return id;
+//	}
+//
+//	public void setId(Long id) {
+//		this.id = id;
+//	}
 
 	public Long getUid() {
 		return uid;

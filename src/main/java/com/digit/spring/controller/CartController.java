@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.digit.spring.payload.CartDTO;
 import com.digit.spring.payload.ProductDTO;
 import com.digit.spring.service.UserService;
 
@@ -24,7 +23,7 @@ public class CartController {
 
 	// add to cart
 	@PostMapping("/{uid}/{pid}")
-	public ResponseEntity<CartDTO> addToCart(@PathVariable Long uid, @PathVariable Long pid) {
+	public ResponseEntity<String> addToCart(@PathVariable Long uid, @PathVariable Long pid) {
 		return new ResponseEntity<>(userService.addToCart(uid, pid), HttpStatus.CREATED);
 	}
 	
@@ -33,8 +32,5 @@ public class CartController {
 		return userService.getAllOneUserCart(uid);
 	}
 	
-//	@GetMapping("allProducts/{uid}")
-//	public String getAllOneUser(@PathVariable Long uid){
-//		return "Hello";
-//	}
-}
+
+} 

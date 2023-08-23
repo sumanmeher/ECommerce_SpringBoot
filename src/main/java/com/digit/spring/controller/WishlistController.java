@@ -24,7 +24,7 @@ public class WishlistController {
 
 	// add to cart
 	@PostMapping("/{uid}/{pid}")
-	public ResponseEntity<WishlistDTO> addToWishlist(@PathVariable Long uid, @PathVariable Long pid) {
+	public ResponseEntity<String> addToWishlist(@PathVariable Long uid, @PathVariable Long pid) {
 		return new ResponseEntity<>(userService.addToWishlist(uid, pid), HttpStatus.CREATED);
 	}
 	

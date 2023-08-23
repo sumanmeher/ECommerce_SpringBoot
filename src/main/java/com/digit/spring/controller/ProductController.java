@@ -44,12 +44,6 @@ public class ProductController {
 		return new ResponseEntity<>(productService.updateProduct(id, productDto), HttpStatus.CREATED);
 	}
 
-//	@PutMapping("/{id}")
-//	public String updateProduct(@PathVariable Long id,@RequestBody ProductDTO productDto) {
-//		System.out.println(productDto.getTitle());
-//		System.out.println(productDto.getPrice());
-//		return "success";
-//	}
 	@DeleteMapping("/{id}")
 	public String deleteProduct(@PathVariable Long id) {
 		return productService.deleteProduct(id);

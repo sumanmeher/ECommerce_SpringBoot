@@ -71,11 +71,10 @@ public class ProductService {
 		if (productDto.getDescription() != null)
 			product.setDescription(productDto.getDescription());
 
-//		System.out.println(productDto.getDescription());
 		Products save = productRepo.save(product);
 		return entityToDtoProduct(save);
 	}
-
+ 
 	public String deleteProduct(Long id) {
 		productRepo.deleteById(id);
 		return "Deleted Successfully!";
