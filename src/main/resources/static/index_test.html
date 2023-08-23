@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello Page</title>
+    
+</head>
+<body>
+        <h1 id="title"></h1>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script>
+		
+		$.ajax({
+            url: "http://localhost:8090/api/product/1",
+            type: "GET",
+            dataType: "JSON",
+            async: false,
+            success: function (data) {
+				h = data.title+"<br><h1>"+data.price+"</h1>";
+				$("#title").html(h);
+                console.log(data);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+		
+	</script>
+</body>
+</html>
