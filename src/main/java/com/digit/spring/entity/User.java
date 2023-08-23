@@ -60,6 +60,8 @@ public class User {
 			@JoinColumn(name="pid", referencedColumnName = "pid")
 	})
 	private List<Products> cartProducts;
+	
+	
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name="wishlist",

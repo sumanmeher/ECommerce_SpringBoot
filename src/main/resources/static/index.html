@@ -150,8 +150,42 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"
 		integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 	<script>
-
+		
 		$.ajax({
+			url: "http://localhost:8090/api/product",
+			type: "GET",
+			dataType: "JSON",
+			async: false,
+			success: function (data) {
+				$("#productBox").html("");
+				$.each(data, (key, value) => {
+					let pData = '<div class="col-lg-3 mt-4 mb-4">' +
+						'<a href="product-detail.html?pid='+value.pid+'">' +
+						'<div class="product-item">' +
+						'<div class="product-image">' +
+						
+						'<img src="https://picsum.photos/200" alt="Product Image">' +
+						
+						'</div>' +
+						'<div class="product-content">' +
+						'<div class="title">'+value.title+'</div>' +
+						'<div class="price">Rs.'+value.price+'</div>' +
+						'</div>' +
+						'</div>' +
+						'</a>' +
+						'</div>';
+						$("#productBox").append(pData);
+
+				});
+				console.log(data);
+			},
+			error: function (err) {
+				console.log(err);
+			}
+		});
+		
+		function getImage(){
+			$.ajax({
 			url: "http://localhost:8090/api/product",
 			type: "GET",
 			dataType: "JSON",
@@ -163,7 +197,7 @@
 						'<div class="product-item">' +
 						'<div class="product-image">' +
 						'<a href="product-detail.html">' +
-						'<img src="img/product-1.png" alt="Product Image">' +
+						'<img src="https://picsum.photos/200" alt="Product Image">' +
 						'</a>' +
 						'</div>' +
 						'<div class="product-content">' +
@@ -181,6 +215,8 @@
 				console.log(err);
 			}
 		});
+		}
+		
 
 	</script>
 </body>
