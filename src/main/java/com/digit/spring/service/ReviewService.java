@@ -1,5 +1,8 @@
 package com.digit.spring.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +39,6 @@ public class ReviewService {
 		Reviews review = new Reviews();
 		review.setRid(reviewDto.getRid());
 		review.setText(reviewDto.getText());
-		review.setProduct(productRepo.getReferenceById(reviewDto.getPid()));
 		review.setUser(userRepository.getReferenceById(reviewDto.getUid()));
 		
 //		review.setPid(review.getProduct().getPid());
@@ -44,17 +46,32 @@ public class ReviewService {
 		return review;
 	}
 	
-	
-	public ReviewDTO addReview(ReviewDTO reviewDto) {
-		Reviews review = reviewRepository.save(DtoToEntityReview(reviewDto));
-		return EntityToDtoReview(review);
-	}
-	
 	public ReviewDTO getSpecificReview(Long id) {
 		Reviews review = reviewRepository.getReferenceById(id);
 		return EntityToDtoReview(review); 
 	}
-	
-	
-	
+	public ReviewDTO addReview(ReviewDTO reviewDto) {
+		Reviews review = reviewRepository.save(DtoToEntityReview(reviewDto));
+		return EntityToDtoReview(review);
+	}
+
+	public List<ReviewDTO> getAllReviews() {
+		List<Reviews> review = reviewRepository.findAll();
+		return review.stream().map(reviews -> EntityToDtoReview(reviews)).collect(Collectors.toList());
+	}
+
+	public ReviewDTO updateReviews(Long id, ReviewDTO reviewDto) {
+		Reviews review = reviewRepository.getReferenceById(id);
+		if(reviewDto.getText()!=null)
+			review.setText(reviewDto.getText());
+		
+		Reviews save =  reviewRepository.save(review);
+		return EntityToDtoReview(save);
+	}
+
+	public String deleteReview(Long id) {
+		reviewRepository.deleteById(id);
+		return "Deleted Successfully!";
+	}
+		
 }
