@@ -29,7 +29,7 @@ public class ProductService {
 		product.setTitle(productDTO.getTitle());
 		product.setPrice(productDTO.getPrice());
 		product.setDescription(productDTO.getDescription());
-//		product.setUid(productDTO.getUid());
+		product.setUser(userRepository.getReferenceById(productDTO.getUid()));
 		return product;
 	}
 
@@ -39,7 +39,7 @@ public class ProductService {
 		productDTO.setTitle(product.getTitle());
 		productDTO.setPrice(product.getPrice());
 		productDTO.setDescription(product.getDescription()); 
-//		productDTO.setUid(product.getUid());
+		productDTO.setUid(product.getUser().getUid());
 		return productDTO;
 	}
 
@@ -50,8 +50,6 @@ public class ProductService {
 
 	public ProductDTO addProduct(ProductDTO productDto) {
 		Products prod = dtoToEntityProduct(productDto);
-		User user = userRepository.getReferenceById(productDto.getUid());
-		prod.setUser(user);
 		Products productdto = productRepo.save(prod);
 		return entityToDtoProduct(productdto);
 
