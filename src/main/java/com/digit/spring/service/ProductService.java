@@ -75,7 +75,7 @@ public class ProductService {
  
 	public String deleteProduct(Long id) {
 		productRepo.deleteById(id);
-		return "Deleted Successfully!";
+		return "Deleted Successfully!"; 
 
 	}
 
