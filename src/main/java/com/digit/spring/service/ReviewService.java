@@ -3,7 +3,9 @@ package com.digit.spring.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.digit.spring.entity.Products;
 import com.digit.spring.entity.Reviews;
+import com.digit.spring.payload.ProductDTO;
 import com.digit.spring.payload.ReviewDTO;
 import com.digit.spring.repository.ProductRepository;
 import com.digit.spring.repository.ReviewRepository;
@@ -48,7 +50,10 @@ public class ReviewService {
 		return EntityToDtoReview(review);
 	}
 	
-	
+	public ReviewDTO getSpecificReview(Long id) {
+		Reviews review = reviewRepository.getReferenceById(id);
+		return EntityToDtoReview(review); 
+	}
 	
 	
 	

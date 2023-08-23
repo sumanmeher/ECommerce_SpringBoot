@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.digit.spring.entity.Reviews;
+import com.digit.spring.payload.ProductDTO;
 import com.digit.spring.payload.ReviewDTO;
 import com.digit.spring.service.ReviewService;
 
@@ -23,5 +27,7 @@ public class ReviewController {
 		ReviewDTO review = reviewService.addReview(reviewDto);
 		return new ResponseEntity<>(review,HttpStatus.CREATED);
 	}
+	
+
 
 }
