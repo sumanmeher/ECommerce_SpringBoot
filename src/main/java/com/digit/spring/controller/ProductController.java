@@ -42,14 +42,14 @@ public class ProductController {
 
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDto) {
-		return new ResponseEntity<>(productService.updateProduct(id, productDto), HttpStatus.CREATED);
+	@PutMapping("/{pid}")
+	public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long pid, @RequestBody ProductDTO productDto) {
+		return new ResponseEntity<>(productService.updateProduct(pid, productDto), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/{id}")
-	public String deleteProduct(@PathVariable Long id) {
-		return productService.deleteProduct(id);
+	@DeleteMapping("/{pid}")
+	public String deleteProduct(@PathVariable Long pid) {
+		return productService.deleteProduct(pid);
 	}
 
 }

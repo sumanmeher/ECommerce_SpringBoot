@@ -3,6 +3,7 @@ package com.digit.spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,13 +21,13 @@ public class UserController {
 	private UserService userService;
 	
 	//Register user
-	@PostMapping("auth/register")
+	@PostMapping
 	public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDto){
 		return new ResponseEntity<>(userService.addProduct(userDto), HttpStatus.CREATED);
 	}
 	
 	//Login user
-	@PostMapping("auth/long/{uid}")
+	@GetMapping("/{uid}")
 	public ResponseEntity<UserDTO> getOneUser(@PathVariable Long uid, @RequestBody UserDTO userDto) {
 		UserDTO oneUser = userService.getOneUser(uid,userDto);
 		
