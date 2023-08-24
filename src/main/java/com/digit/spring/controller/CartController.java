@@ -38,5 +38,5 @@ public class CartController {
 		return new ResponseEntity<>(userService.removeFromCart(uid, pid), HttpStatus.OK);
 	} 
 
-	
+
 } 
