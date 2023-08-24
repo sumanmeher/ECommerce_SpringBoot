@@ -27,9 +27,9 @@ public class UserController {
 	}
 	
 	//Login user
-	@GetMapping("/{uid}")
-	public ResponseEntity<UserDTO> getOneUser(@PathVariable Long uid, @RequestBody UserDTO userDto) {
-		UserDTO oneUser = userService.getOneUser(uid,userDto);
+	@PostMapping("auth/login")
+	public ResponseEntity<UserDTO> getOneUser(@RequestBody UserDTO userDto) {
+		UserDTO oneUser = userService.getOneUser(userDto);
 		
 		if(oneUser!=null)
 			return new ResponseEntity<>(oneUser, HttpStatus.OK);
