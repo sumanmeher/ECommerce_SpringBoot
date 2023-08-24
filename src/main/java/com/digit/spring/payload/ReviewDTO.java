@@ -10,6 +10,4 @@ public class ReviewDTO {
 	String text;
 	Long uid;
 	Long pid;
-	
-	
 }

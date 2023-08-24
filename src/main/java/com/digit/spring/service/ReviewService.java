@@ -40,9 +40,7 @@ public class ReviewService {
 		review.setRid(reviewDto.getRid());
 		review.setText(reviewDto.getText());
 		review.setUser(userRepository.getReferenceById(reviewDto.getUid()));
-		
-//		review.setPid(review.getProduct().getPid());
-//		review.setUid(review.getUser().getUid());
+		review.setProduct(productRepo.getReferenceById(reviewDto.getPid()));
 		return review;
 	}
 	
@@ -55,8 +53,8 @@ public class ReviewService {
 		return EntityToDtoReview(review);
 	}
 
-	public List<ReviewDTO> getAllReviews() {
-		List<Reviews> review = reviewRepository.findAll();
+	public List<ReviewDTO> getAllReviews(Long uid) {
+		List<Reviews> review = productRepo.getReferenceById(uid).getReviews();
 		return review.stream().map(reviews -> EntityToDtoReview(reviews)).collect(Collectors.toList());
 	}
 

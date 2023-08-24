@@ -1,25 +1,26 @@
 package com.digit.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.digit.spring.entity.Products;
-import com.digit.spring.entity.User;
+import com.digit.spring.entity.Reviews;
 import com.digit.spring.payload.ProductDTO;
-
+import com.digit.spring.payload.ReviewDTO;
 import com.digit.spring.repository.ProductRepository;
 import com.digit.spring.repository.UserRepository;
 
 @Service
 public class ProductService {
-	
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private ProductRepository productRepo;
 
@@ -38,14 +39,47 @@ public class ProductService {
 		productDTO.setPid(product.getPid());
 		productDTO.setTitle(product.getTitle());
 		productDTO.setPrice(product.getPrice());
-		productDTO.setDescription(product.getDescription()); 
+		productDTO.setDescription(product.getDescription());
 		productDTO.setUid(product.getUser().getUid());
+//		productDTO.setReviews(product.getReviews());
 		return productDTO;
 	}
 
-	public ProductDTO getSpecificProduct(Long id) {
+	private ReviewDTO EntityToDtoReview(Reviews review) {
+		ReviewDTO reviewDto = new ReviewDTO();
+		reviewDto.setRid(review.getRid());
+		reviewDto.setText(review.getText());
+		reviewDto.setPid(review.getProduct().getPid());
+		reviewDto.setUid(review.getUser().getUid());
+		return reviewDto;
+	}
+
+	private Reviews DtoToEntityReview(ReviewDTO reviewDto) {
+		Reviews review = new Reviews();
+		review.setRid(reviewDto.getRid());
+		review.setText(reviewDto.getText());
+		review.setUser(userRepository.getReferenceById(reviewDto.getUid()));
+		review.setProduct(productRepo.getReferenceById(reviewDto.getPid()));
+		return review;
+	}
+
+	
+	public TreeMap getSpecificProduct(Long id) {
 		Products product = productRepo.getReferenceById(id);
-		return entityToDtoProduct(product);
+		
+		TreeMap treeMap = new TreeMap();
+		
+		treeMap.put("product", entityToDtoProduct(product));
+
+		List<ReviewDTO> reviewList = new ArrayList();
+
+		List<Reviews> reviews = product.getReviews();
+		for (Reviews reviewObj : product.getReviews()) {
+			reviewList.add(EntityToDtoReview(reviewObj));
+		}
+		treeMap.put("reviews", reviewList);
+
+		return treeMap;
 	}
 
 	public ProductDTO addProduct(ProductDTO productDto) {
@@ -72,7 +106,7 @@ public class ProductService {
 		Products save = productRepo.save(product);
 		return entityToDtoProduct(save);
 	}
- 
+
 	public String deleteProduct(Long id) {
 		productRepo.deleteById(id);
 		return "Deleted Successfully!"; 
