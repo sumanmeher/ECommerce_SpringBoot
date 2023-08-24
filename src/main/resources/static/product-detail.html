@@ -139,43 +139,20 @@
 							<ul class="nav nav-pills nav-justified">
 
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+									<a class="nav-link active" data-toggle="pill" href="#reviews">Reviews (<span id="reviewCout"></span>)</a>
 								</li>
 							</ul>
 
 							<div class="tab-content">
 
-								<div id="reviews" class="container tab-pane fade"><br>
-									<div class="reviews-submitted">
-										<div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-										<div class="ratting">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<p>
-											Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-											doloremque laudantium, totam rem aperiam.
-										</p>
-									</div>
+								<div  class="container"><br>
+								<div id="reviews"></div>
+									
 									<div class="reviews-submit">
 										<h4>Give your Review:</h4>
-										<div class="ratting">
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
+
 										<div class="row form">
-											<div class="col-sm-6">
-												<input type="text" placeholder="Name">
-											</div>
-											<div class="col-sm-6">
-												<input type="email" placeholder="Email">
-											</div>
+
 											<div class="col-sm-12">
 												<textarea placeholder="Review"></textarea>
 											</div>
@@ -238,15 +215,28 @@
 	<script>
 		let product_id = new URL(location.href).searchParams.get("pid");
 		$.ajax({
-			url: "http://localhost:8090/api/product/"+product_id,
+			url: "http://localhost:8090/api/product/" + product_id,
 			type: "GET",
 			dataType: "JSON",
 			async: false,
 			success: function (data) {
-				$("#title").text(data.title);
-				$("#price").text("Rs. " + data.price);
-
 				console.log(data);
+				//adding product details
+				$("#title").text(data.product.title);
+				$("#price").text("Rs. " + data.product.price);
+
+				//Adding Reviews
+				//$("#reviews").html("");
+				$("#reviewCout").text(data.reviews.length);
+				let rData="";
+				$.each(data.reviews, (key, value) => {
+					rData += '<div class="reviews-submitted">';
+					rData +='<div class="reviewer" > Phasellus Gravida </div >';
+					rData +='<p>'+value.text+'</p>';
+					rData +='</div >';
+				});
+				$("#reviews").html(rData);
+
 			},
 			error: function (err) {
 				console.log(err);

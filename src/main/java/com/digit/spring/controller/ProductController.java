@@ -1,5 +1,6 @@
 package com.digit.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.digit.spring.entity.Reviews;
 import com.digit.spring.payload.ProductDTO;
+import com.digit.spring.payload.ReviewDTO;
 import com.digit.spring.service.ProductService;
 
 @RestController
@@ -24,8 +27,8 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/{pid}")
-	public ProductDTO getOneProduct(@PathVariable Long pid) {
-		return productService.getSpecificProduct(pid);
+	public ResponseEntity getOneProduct(@PathVariable Long pid) {
+		return new ResponseEntity<>(productService.getSpecificProduct(pid), HttpStatus.OK);
 	}
 
 	@PostMapping

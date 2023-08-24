@@ -10,6 +10,11 @@ public class ReviewDTO {
 	String text;
 	Long uid;
 	Long pid;
+	@Override
+	public String toString() {
+		return "ReviewDTO [rid=" + rid + ", text=" + text + ", uid=" + uid + ", pid=" + pid + "]";
+	}
+	
 	
 	
 }

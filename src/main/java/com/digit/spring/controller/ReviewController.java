@@ -24,11 +24,6 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 
-//	@GetMapping("/{rid}")
-//	public ReviewDTO getOneReview(@PathVariable Long rid) {
-//		return reviewService.getSpecificReview(rid);
-//	}
-	
 	@GetMapping("/{rid}")
 	public ResponseEntity<ReviewDTO> getOneReview(@PathVariable Long rid) {
 	    ReviewDTO reviewDTO = reviewService.getSpecificReview(rid);
@@ -40,22 +35,16 @@ public class ReviewController {
 	    }
 	}
 	
-	// add comments
+	// add Review
 	@PostMapping
 	public ResponseEntity<ReviewDTO> addReview(@RequestBody ReviewDTO reviewDto) {
 		ReviewDTO review = reviewService.addReview(reviewDto);
 		return new ResponseEntity<>(review, HttpStatus.CREATED);
 	}
 
-
-//	@GetMapping("/{rid}")
-//	public ResponseEntity<String> getReview(@PathVariable Long rid) {
-////	        ReviewDTO review = reviewService.addReview(reviewDto);
-//		return new ResponseEntity<>("review success", HttpStatus.CREATED);
-//	}
-	@GetMapping
-	public ResponseEntity<List<ReviewDTO>> getAllReviews() {
-	    List<ReviewDTO> reviewDTOList = reviewService.getAllReviews();
+	@GetMapping("/user/{uid}")
+	public ResponseEntity<List<ReviewDTO>> getAllReviewsOneUser(@PathVariable Long uid) {
+	    List<ReviewDTO> reviewDTOList = reviewService.getAllReviews(uid);
 	    
 	    if (!reviewDTOList.isEmpty()) {
 	        return ResponseEntity.ok(reviewDTOList);

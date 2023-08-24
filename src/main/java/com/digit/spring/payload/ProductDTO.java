@@ -1,5 +1,10 @@
 package com.digit.spring.payload;
 
+import java.util.List;
+
+import com.digit.spring.entity.Reviews;
+
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +16,6 @@ public class ProductDTO {
 	int price;
 	String description;
 	Long uid;	
+	
+//	List<Reviews> reviews;
 }
