@@ -96,13 +96,9 @@ public class UserService {
 //    	wishlist.setPid(wishlistDto.getPid());
 //        return wishlist;
 //    }
-    
-    
-    
-    
 	
-	public UserDTO getOneUser(Long uid, UserDTO userDto) {
-		User oneUser = userRepo.getReferenceById(uid);
+	public UserDTO getOneUser(UserDTO userDto) {
+		User oneUser = userRepo.getReferenceById(userDto.getUid());
 		if(oneUser.getPassword().equals(userDto.getPassword())) {
 			System.out.println(oneUser.getProducts());
 			return EntityToDtoUser(oneUser);

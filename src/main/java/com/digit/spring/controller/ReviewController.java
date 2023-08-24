@@ -27,7 +27,6 @@ public class ReviewController {
 	@GetMapping("/{rid}")
 	public ResponseEntity<ReviewDTO> getOneReview(@PathVariable Long rid) {
 	    ReviewDTO reviewDTO = reviewService.getSpecificReview(rid);
-	    
 	    if (reviewDTO != null) {
 	        return ResponseEntity.ok(reviewDTO);
 	    } else {
@@ -42,9 +41,9 @@ public class ReviewController {
 		return new ResponseEntity<>(review, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/user/{uid}")
-	public ResponseEntity<List<ReviewDTO>> getAllReviewsOneUser(@PathVariable Long uid) {
-	    List<ReviewDTO> reviewDTOList = reviewService.getAllReviews(uid);
+	@GetMapping("/product/{pid}")
+	public ResponseEntity<List<ReviewDTO>> getAllReviewsOneProduct(@PathVariable Long pid) {
+	    List<ReviewDTO> reviewDTOList = reviewService.getAllReviews(pid);
 	    
 	    if (!reviewDTOList.isEmpty()) {
 	        return ResponseEntity.ok(reviewDTOList);
