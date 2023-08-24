@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class WishlistController {
 	@Autowired
 	private UserService userService;
 
-	// add to cart
+	// add to Wishlist
 	@PostMapping("/{uid}/{pid}")
 	public ResponseEntity<String> addToWishlist(@PathVariable Long uid, @PathVariable Long pid) {
 		return new ResponseEntity<>(userService.addToWishlist(uid, pid), HttpStatus.CREATED);
@@ -31,5 +32,10 @@ public class WishlistController {
 	@GetMapping("/{uid}")
 	public List<ProductDTO> getAllOneUser(@PathVariable Long uid){
 		return userService.getAllOneUserWishlist(uid);
+	}
+	
+	@DeleteMapping("/{uid}/{pid}") 
+	public ResponseEntity<String> removeFromWishList(@PathVariable Long uid, @PathVariable Long pid){
+		return new ResponseEntity<>(userService.removeFromWishList(uid, pid), HttpStatus.OK);
 	}
 }

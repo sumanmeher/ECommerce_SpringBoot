@@ -127,7 +127,7 @@ public class UserService {
 		user.setCartProducts(cartProducts);
 		User save = userRepo.save(user);
 		
-		return "added to cart";
+		return "added to cart"; 
 	}
 	
 	public List<ProductDTO> getAllOneUserCart(Long uid){
@@ -153,14 +153,6 @@ public class UserService {
 	}
 	
 	public List<ProductDTO> getAllOneUserWishlist(Long uid){
-//		List<Wishlist> wishList = wishlistRepository.findByUid(uid);
-//		List<ProductDTO> finalList = new ArrayList<>();
-//		for (Wishlist wishlist : wishList) {
-//			Long pId = wishlist.getPid();
-//			Products prod = productRepository.getReferenceById(pId);
-//			finalList.add(entityToDtoProduct(prod));
-//		}
-//		return finalList;
 		
 		User user = userRepo.getReferenceById(uid);
 		List<ProductDTO> finalList = new ArrayList<>();
@@ -168,7 +160,25 @@ public class UserService {
 			finalList.add(entityToDtoProduct(prod));
 		}
 		return finalList;
-		
-		
+	}
+
+	public String removeFromWishList(Long uid, Long pid) {
+		User user = userRepo.getReferenceById(uid);
+		Products prod = productRepository.getReferenceById(pid);
+		List<Products> wishListProducts = user.getWishListProducts();
+		wishListProducts.remove(prod);
+		user.setWishListProducts(wishListProducts);
+		User save = userRepo.save(user);
+		return "Removed Successfully";
+	}
+
+	public String removeFromCart(Long uid, Long pid) {
+		User user = userRepo.getReferenceById(uid);
+		Products prod = productRepository.getReferenceById(pid);
+		List<Products> cartProducts = user.getCartProducts();
+		cartProducts.remove(prod);
+		user.setCartProducts(cartProducts); 
+		User save = userRepo.save(user);
+		return "Removed Successfully";
 	}
 }
