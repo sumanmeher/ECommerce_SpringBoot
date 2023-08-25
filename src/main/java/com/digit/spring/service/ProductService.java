@@ -63,12 +63,11 @@ public class ProductService {
 		return review;
 	}
 
-	
 	public TreeMap getSpecificProduct(Long id) {
 		Products product = productRepo.getReferenceById(id);
-		
+
 		TreeMap treeMap = new TreeMap();
-		
+
 		treeMap.put("product", entityToDtoProduct(product));
 
 		List<ReviewDTO> reviewList = new ArrayList();
@@ -82,10 +81,27 @@ public class ProductService {
 		return treeMap;
 	}
 
-	public ProductDTO addProduct(ProductDTO productDto) {
-		Products prod = dtoToEntityProduct(productDto);
-		Products productdto = productRepo.save(prod);
-		return entityToDtoProduct(productdto);
+	public String addProduct(ProductDTO productDto) {
+		if (productDto.getTitle() != null && productDto.getPrice() != 0 && productDto.getDescription() != null
+			&& productDto.getTitle()!="" && productDto.getDescription()!=""
+				) {
+
+			Products prod = dtoToEntityProduct(productDto);
+			Products productdto = productRepo.save(prod);
+			return "product added";
+		} else {
+			if(productDto.getTitle()==null || productDto.getTitle()=="") {
+				return "title is empty";
+			}else if(productDto.getPrice()==0) {
+				return "price can not be zero";
+			}else if(productDto.getDescription()==null || productDto.getDescription()=="") {
+				return "description is empty";
+			}else {
+				return "something went wrong";
+			}
+			
+		}
+			
 
 	}
 
@@ -109,7 +125,7 @@ public class ProductService {
 
 	public String deleteProduct(Long id) {
 		productRepo.deleteById(id);
-		return "Deleted Successfully!"; 
+		return "Deleted Successfully!";
 
 	}
 

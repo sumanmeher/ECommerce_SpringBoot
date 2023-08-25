@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductDTO {
-	Long pid;
+	long pid;
 	String title;
 	int price;
 	String description;

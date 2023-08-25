@@ -28,13 +28,13 @@ public class Products {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long pid;
  
-	@Column(name = "title", nullable = false)
+	@Column(name = "title")
 	String title;
 
 	@Column(name = "price", nullable = false)
 	int price;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description")
 	String description;
 
 	@ManyToOne 
